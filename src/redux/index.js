@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'react-router-redux'
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 import reducer from './reducers'
@@ -14,7 +14,7 @@ const enhancer = applyMiddleware(
   logger
 )
 
-const store = createStore(connectRouter(history)(reducer), enhancer)
+const store = createStore(reducer, enhancer)
 
 sagaMiddleware.run(rootSaga)
 

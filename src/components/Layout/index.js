@@ -19,12 +19,12 @@ function Layout(props) {
         direction="row"
         justify="space-between"
       >
-        <Grid item lg={8} xs={12} md={12} sm={12}>
+        <Grid item lg={8} xs={12} md={8} sm={12}>
           <Navigation />
 
           {props.children}
         </Grid>
-        <Grid item lg={4} xs={12} md={12} sm={12}>
+        <Grid item lg={4} xs={12} md={4} sm={12}>
           <Sidebar />
         </Grid>
       </Grid>
