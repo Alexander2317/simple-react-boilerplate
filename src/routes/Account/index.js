@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { Title } from '../../components/Typography'
 import UserCard from '../../components/UserCard'
 import Popup from '../../components/Popup'
-import { accountPersonSelector, getAccountPerson } from '../../redux/selectors'
+import { accountPersonSelector } from '../../redux/selectors'
 import s from './index.css'
 
 class Account extends Component {

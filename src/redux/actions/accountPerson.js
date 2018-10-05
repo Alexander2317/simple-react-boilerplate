@@ -11,7 +11,6 @@ export function addAccountPerson(person) {
 }
 
 export function deleteAccountPerson(id) {
-  console.log('action', id)
   return {
     type: DELETE_PERSON_ACCOUNT_START,
     payload: id
