@@ -1,4 +1,4 @@
-###Commands for up project:
+###Commands for launch project:
 
 ``` yarn intall ``` <br>
 ``` yarn start```
