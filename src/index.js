@@ -1,16 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { ConnectedRouter as Router } from 'react-router-redux'
-import App from './App'
-import store from './redux'
-import history from './history'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './app';
+
+if (module.hot) module.hot.accept();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById('root')
-)
+  <App />,
+  document.getElementById('app'),
+);
