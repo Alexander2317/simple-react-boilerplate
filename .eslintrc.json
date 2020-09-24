@@ -1,0 +1,59 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "sourceType": "module"
+    },
+    "extends": [
+        "prettier",
+        "airbnb",
+        "plugin:prettier/recommended",
+        "plugin:flowtype/recommended",
+        "plugin:css-modules/recommended",
+        "prettier/flowtype",
+        "prettier/react"
+    ],
+  "settings": {
+    "import/resolver": {
+      "node": {"moduleDirectory": ["node_modules", "components", "pages"]},
+      "babel-module": {}
+    }
+  },
+  "plugins": ["babel", "react","flowtype", "css-modules", "prettier", "jest"],
+  "env": {
+      "browser": true,
+      "node": true
+  },
+  "rules": {
+      "semi": ["error", "never"],
+      "no-console": ["error", {"allow": ["warn", "error", "info"]}],
+      "prefer-destructuring": [
+        "error",
+        {
+          "VariableDeclarator": {
+           "array": false,
+           "object": true
+          },
+          "AssignmentExpression": {
+            "array": false,
+            "object": false
+          }
+        },
+        {
+          "enforceForRenamedProperties": false
+        }
+      ],
+      "no-unused-vars": ["error", { "args": "none" }],
+      "prettier/prettier": "error",
+      "import/extensions": "off",
+      "import/no-unresolved": "off",
+      "css-modules/no-unused-class": [0, { "camelCase": true }],
+      "css-modules/no-undef-class": [0, { "camelCase": true }],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "import/no-extraneous-dependencies": ["error", { "packageDir": ".", "devDependencies": true }],
+      "react/prefer-stateless-function": "off"
+  }
+}

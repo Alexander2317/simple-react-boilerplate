@@ -1,11 +1,15 @@
-import React from 'react';
+// @flow
 
-import style from './style.css';
+import * as React from 'react'
 
-const App = () => (
-  <div className={style.container}>
-    test
-  </div>
-);
+import style from './style.css'
 
-export default App;
+type Props = {
+  id: number,
+}
+
+const Some = (props: Props) => <div>{props.id}</div>
+
+const App = (): React.Node => <div className={style.container}>test <Some id={123} /></div>
+
+export default App

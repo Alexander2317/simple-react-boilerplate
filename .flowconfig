@@ -1,0 +1,17 @@
+[ignore]
+.*/dist
+.*/node_modules
+
+[include]
+./src
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.css
+module.file_ext=.js
+module.file_ext=.jsx
+
+[strict]

@@ -23,15 +23,7 @@ module.exports = (env) => ({
       {
         test: /\.(jsx?)$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader',
-          {
-            loader: 'eslint-loader',
-            options: {
-              fix: true,
-            },
-          }
-        ],
+        use: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.(p?css)$/,
@@ -42,7 +34,7 @@ module.exports = (env) => ({
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: env.NODE_ENV === 'development',
-            }
+            },
           },
           {
             loader: 'css-loader',
@@ -60,7 +52,7 @@ module.exports = (env) => ({
               },
             },
           },
-        ]
+        ],
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -100,16 +92,16 @@ module.exports = (env) => ({
                 quality: 75,
               },
             },
-          }
+          },
         ],
-      }
-    ]
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
-      chunkFilename: '[id].css'
+      chunkFilename: '[id].css',
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
 })
