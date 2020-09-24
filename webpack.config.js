@@ -1,11 +1,24 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const MODE_DEVELOPMENT = 'development'
+const MODE_PRODUCTION = 'production'
+
+const REG_EXP = {
+  js: /\.jsx?/,
+  css: /\.(p?css)$/,
+  files: /\.(png|jpe?g|gif|svg|woff(2)?|ttf|eot|otf)$/,
+  fonts: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+}
 
 module.exports = (env) => ({
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
   resolve: {
@@ -21,12 +34,12 @@ module.exports = (env) => ({
   module: {
     rules: [
       {
-        test: /\.(jsx?)$/,
+        test: REG_EXP.js,
         exclude: /node_modules/,
         use: ['babel-loader', 'eslint-loader'],
       },
       {
-        test: /\.(p?css)$/,
+        test: REG_EXP.css,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: [
@@ -48,14 +61,14 @@ module.exports = (env) => ({
             options: {
               postcssOptions: {
                 config: path.resolve(__dirname, 'postcss.config.js'),
-                sourceMap: env.NODE_ENV === 'development',
+                sourceMap: env.NODE_ENV === MODE_DEVELOPMENT,
               },
             },
           },
         ],
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: REG_EXP.fonts,
         loader: 'url-loader',
         options: {
           limit: 1000,
@@ -63,7 +76,7 @@ module.exports = (env) => ({
         },
       },
       {
-        test: /\.(png|gif|jpe?g|svg)/,
+        test: REG_EXP.files,
         use: [
           {
             loader: 'file-loader',
@@ -103,5 +116,51 @@ module.exports = (env) => ({
       chunkFilename: '[id].css',
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/template/index.html'),
+    })
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          test: REG_EXP.css,
+          name: 'styles',
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+    minimizer: [
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: REG_EXP.css,
+        cssProcessor: require('cssnano'),
+        cssProcessorPluginOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+        canPrint: true,
+      }),
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        terserOptions: {
+          compress: {
+            dead_code: true,
+            conditionals: true,
+            booleans: true,
+          },
+          module: false,
+          output: {
+            comments: false,
+            beautify: false,
+          },
+        },
+      }),
+    ],
+  }
 })

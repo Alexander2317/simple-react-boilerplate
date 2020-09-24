@@ -8,8 +8,12 @@ type Props = {
   id: number,
 }
 
-const Some = (props: Props) => <div>{props.id}</div>
+const Some = ({ id }: Props) => <div>{id}</div>
 
-const App = (): React.Node => <div className={style.container}>test <Some id={123} /></div>
+const App = (): React.Node => (
+  <div className={style.container}>
+    test <Some id={123} />
+  </div>
+)
 
 export default App
