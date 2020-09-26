@@ -96,8 +96,8 @@
     "fix": "yarn fix-js && yarn fix-css",
     "test": "jest --no-cache",
     "flow": "flow",
-    "build": "webpack --env.NODE_ENV=production --mode production",
-    "start": "webpack-dev-server --env.NODE_ENV=development --mode development"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
