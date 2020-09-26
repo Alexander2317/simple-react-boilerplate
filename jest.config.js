@@ -3,7 +3,7 @@ module.exports = {
   automock: false,
   browser: false,
   bail: false,
-  rootDir: 'src',
+  rootDir: './',
   globals: {
     __DEV__: true,
   },
