@@ -1,19 +1,21 @@
 // @flow
 
 import * as React from 'react'
+import { Provider } from 'react-redux'
+import { ConnectedRouter as Router } from 'connected-react-router'
 
-import style from './style.css'
+import { configureStore, history } from './redux'
 
-type Props = {
-  id: number,
-}
+import Pages from './pages'
 
-const Some = ({ id }: Props) => <div>{id}</div>
+const store = configureStore()
 
 const App = (): React.Node => (
-  <div className={style.container}>
-    test <Some id={123} />
-  </div>
+  <Provider store={store}>
+    <Router history={history}>
+      <Pages />
+    </Router>
+  </Provider>
 )
 
 export default App

@@ -25,7 +25,8 @@
   "plugins": ["babel", "react","flowtype", "css-modules", "prettier", "jest"],
   "env": {
       "browser": true,
-      "node": true
+      "node": true,
+      "jest": true
   },
   "rules": {
       "semi": ["error", "never"],
@@ -54,6 +55,7 @@
       "css-modules/no-undef-class": [0, { "camelCase": true }],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "import/no-extraneous-dependencies": ["error", { "packageDir": ".", "devDependencies": true }],
-      "react/prefer-stateless-function": "off"
+      "react/prefer-stateless-function": "off",
+      "import/prefer-default-export": "off"
   }
 }

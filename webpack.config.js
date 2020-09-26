@@ -1,12 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
+const cssProcessor = require('cssnano')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const MODE_DEVELOPMENT = 'development'
-const MODE_PRODUCTION = 'production'
 const PORT = 3000
 
 const PROJECT_FOLDER = 'src'
@@ -22,7 +22,7 @@ const REG_EXP = {
   fonts: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
 }
 
-const getRules = (mode) => ([
+const getRules = (mode) => [
   {
     test: REG_EXP.js,
     exclude: /node_modules/,
@@ -99,9 +99,9 @@ const getRules = (mode) => ([
       },
     ],
   },
-])
+]
 
-const getPlugins = () => ([
+const getPlugins = () => [
   new MiniCssExtractPlugin({
     filename: '[name].bundle.css',
     chunkFilename: '[id].css',
@@ -109,8 +109,8 @@ const getPlugins = () => ([
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'src/template/index.html'),
-  })
-])
+  }),
+]
 
 const getOptimization = () => ({
   splitChunks: {
@@ -125,8 +125,8 @@ const getOptimization = () => ({
   },
   minimizer: [
     new OptimizeCssAssetsPlugin({
+      cssProcessor,
       assetNameRegExp: REG_EXP.css,
-      cssProcessor: require('cssnano'),
       cssProcessorPluginOptions: {
         preset: [
           'default',
