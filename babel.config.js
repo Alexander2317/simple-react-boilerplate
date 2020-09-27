@@ -15,6 +15,7 @@ module.exports = (api) => {
       '@babel/preset-flow',
     ],
     plugins: [
+      '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-syntax-dynamic-import',
       '@babel/plugin-transform-react-jsx',
       '@babel/plugin-proposal-object-rest-spread',
