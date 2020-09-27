@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const MODE_DEVELOPMENT = 'development'
 const PORT = 3000
@@ -101,16 +103,21 @@ const getRules = (mode) => [
   },
 ]
 
-const getPlugins = () => [
+const getPlugins = (mode) => [
   new MiniCssExtractPlugin({
-    filename: '[name].bundle.css',
-    chunkFilename: '[id].css',
+    filename: '[name].[hash].bundle.css',
+    chunkFilename: '[id].[hash].css',
   }),
-  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  }),
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'src/template/index.html'),
   }),
-]
+  mode === MODE_DEVELOPMENT && new webpack.HotModuleReplacementPlugin(),
+  mode !== MODE_DEVELOPMENT &&  new CleanWebpackPlugin({ cleanAfterEveryBuildPatterns: [BUILD_FOLDER] }),
+  mode !== MODE_DEVELOPMENT && new CompressionPlugin(),
+].filter((plugin) => plugin)
 
 const getOptimization = () => ({
   splitChunks: {
@@ -161,11 +168,12 @@ module.exports = (_, { mode }) => ({
   entry: path.resolve(__dirname, PROJECT_FOLDER, ENTRY_FILE_NAME),
   output: {
     path: path.resolve(__dirname, BUILD_FOLDER),
-    filename: BUNDLE_NAME,
+    filename: `[hash].${BUNDLE_NAME}`,
   },
   resolve: {
     extensions: ['.js', '.jsx', 'json'],
   },
+  devtool: mode === MODE_DEVELOPMENT ? 'eval' : 'cheap-module-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, PROJECT_FOLDER),
     open: false,
@@ -176,6 +184,6 @@ module.exports = (_, { mode }) => ({
   module: {
     rules: getRules(mode),
   },
-  plugins: getPlugins(),
+  plugins: getPlugins(mode),
   optimization: getOptimization(),
 })
