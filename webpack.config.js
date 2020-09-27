@@ -7,9 +7,11 @@ const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const MODE_DEVELOPMENT = 'development'
 const PORT = 3000
+const PORT_ANALYZER = 4000
 
 const PROJECT_FOLDER = 'src'
 const BUILD_FOLDER = 'build'
@@ -103,21 +105,29 @@ const getRules = (mode) => [
   },
 ]
 
-const getPlugins = (mode) => [
-  new MiniCssExtractPlugin({
-    filename: '[name].[hash].bundle.css',
-    chunkFilename: '[id].[hash].css',
-  }),
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(mode),
-  }),
-  new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, 'src/template/index.html'),
-  }),
-  mode === MODE_DEVELOPMENT && new webpack.HotModuleReplacementPlugin(),
-  mode !== MODE_DEVELOPMENT &&  new CleanWebpackPlugin({ cleanAfterEveryBuildPatterns: [BUILD_FOLDER] }),
-  mode !== MODE_DEVELOPMENT && new CompressionPlugin(),
-].filter((plugin) => plugin)
+const getPlugins = (mode) =>
+  [
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].bundle.css',
+      chunkFilename: '[id].[hash].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/template/index.html'),
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+      generateStatsFile: true,
+      statsOptions: { source: false },
+      analyzerPort: PORT_ANALYZER,
+    }),
+    mode === MODE_DEVELOPMENT && new webpack.HotModuleReplacementPlugin(),
+    mode !== MODE_DEVELOPMENT &&
+      new CleanWebpackPlugin({ cleanAfterEveryBuildPatterns: [BUILD_FOLDER] }),
+    mode !== MODE_DEVELOPMENT && new CompressionPlugin(),
+  ].filter((plugin) => plugin)
 
 const getOptimization = () => ({
   splitChunks: {
