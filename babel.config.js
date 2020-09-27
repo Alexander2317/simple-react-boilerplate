@@ -22,8 +22,17 @@ module.exports = (api) => {
       '@babel/plugin-proposal-class-properties',
       '@babel/plugin-transform-classes',
       ['@babel/plugin-transform-runtime', { regenerator: true }],
-      ['module-resolver', { root: ['./'] }],
+      [
+        'module-resolver',
+        {
+          root: ['./'],
+          alias: {
+            components: './src/components',
+            pages: './src/pages',
+          },
+        },
+      ],
     ],
-    ignore: ['node_modules', 'dist'],
+    ignore: ['node_modules', 'build'],
   }
 }
