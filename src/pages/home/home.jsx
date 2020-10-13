@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { Title } from 'components'
@@ -13,7 +13,7 @@ type Props = {
   updateCounterAction: Function,
 }
 
-const Home = ({ count, updateCounterAction }: Props) => (
+const Home = ({ count, updateCounterAction }: Props): React.Node => (
   <>
     <Title text="Hello" />
     <button type="button" onClick={updateCounterAction}>
@@ -28,4 +28,7 @@ const Home = ({ count, updateCounterAction }: Props) => (
 const mapStateToProps = (state) => ({ count: counter.getCount(state) })
 const mapDispatchToProps = { updateCounterAction: updateCounter }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default (connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home): React.AbstractComponent<Props>)
