@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Alexander2317",
   "license": "ISC",
-  "homepage": "https://github.com/Alexander2317/simple-react-boilerplatek#readme",
+  "homepage": "https://github.com/Alexander2317/simple-react-boilerplate#readme",
   "description": "It's simple react boilerplate with redux and redux-saga",
   "keywords": [
     "frontend react boilerplate",
@@ -15,10 +15,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alexander2317/simple-react-boilerplatek.git"
+    "url": "git+https://github.com/Alexander2317/simple-react-boilerplate.git"
   },
   "bugs": {
-    "url": "https://github.com/Alexander2317/simple-react-boilerplatek/issues"
+    "url": "https://github.com/Alexander2317/simple-react-boilerplate/issues"
   },
   "dependencies": {
     "classnames": "^2.2.6",
