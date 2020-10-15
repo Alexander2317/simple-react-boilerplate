@@ -11,11 +11,13 @@ import Pages from './pages'
 const store = configureStore()
 
 const App = (): React.Node => (
-  <Provider store={store}>
-    <Router history={history}>
-      <Pages />
-    </Router>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router history={history}>
+        <Pages />
+      </Router>
+    </Provider>
+  </React.StrictMode>
 )
 
 export default App
