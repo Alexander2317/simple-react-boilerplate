@@ -38,4 +38,11 @@ module.exports = {
     ],
     'order/properties-order': [],
   },
+  ignoreFiles: [
+    'package.json',
+    'node_modules/**/*.*',
+    'build/**/*.*',
+    'flow-typed**/*.*',
+    'coverage/**/*.*',
+  ],
 }

@@ -18,12 +18,11 @@ module.exports = {
   },
   verbose: true,
   collectCoverageFrom: [
-    'components/**/*.{js,jsx}',
-    'pages/**/*.{js,jsx}',
+    'src/**/*.{js,jsx}',
     '!**/node_modules/**',
   ],
   coverageDirectory: '<rootDir>/coverage',
-  coverageReporters: ['text', 'text-summary'],
+  coverageReporters: ['text', 'html'],
   coverageThreshold: {
     global: {
       statements: 0,
@@ -32,4 +31,20 @@ module.exports = {
       lines: 0,
     },
   },
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        suiteName: 'react-skeleton',
+        outputDirectory: './coverage',
+        outputName: 'junit.xml',
+        uniqueOutputName: false,
+        classNameTemplate: '{classname}-{title}',
+        titleTemplate: '{classname}-{title}',
+        ancestorSeparator: ' › ',
+        usePathForSuiteName: true,
+      },
+    ],
+  ],
 }
