@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Title } from 'components'
+import { Title } from '../../components'
 
 import { updateCounter } from '../../redux/actions'
 import { counter } from '../../redux/selectors'
