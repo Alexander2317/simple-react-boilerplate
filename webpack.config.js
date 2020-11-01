@@ -117,6 +117,7 @@ const getPlugins = (mode) =>
       filename: isDevMode(mode) ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: isDevMode(mode) ? '[id].css' : '[id].[contenthash].css',
     }),
+    isDevMode(mode) && new webpack.HotModuleReplacementPlugin(),
     !isDevMode(mode) &&
       new BundleAnalyzerPlugin({
         analyzerMode: 'disabled',
