@@ -17,10 +17,7 @@ module.exports = {
       '<rootDir>/tests/file-transformer.js',
   },
   verbose: true,
-  collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-    '!**/node_modules/**',
-  ],
+  collectCoverageFrom: ['src/**/*.{js,jsx}', '!**/node_modules/**'],
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['text', 'html'],
   coverageThreshold: {

@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -14,19 +15,21 @@ const PORT_ANALYZER = 4000
 
 const PROJECT_FOLDER = 'src'
 const BUILD_FOLDER = 'build'
+const IMAGES_FOLDER = '/assets'
 
 const BUNDLE_NAME = 'bundle.js'
 
 const REG_EXP = {
   js: /\.jsx?/,
   css: /\.(p?css)$/,
-  files: /\.(png|jpe?g|gif|svg|woff(2)?|ttf|eot|otf)$/,
+  files: /\.(png|xml|jpe?g|gif|svg|woff(2)?|ttf|eot|otf)$/,
   fonts: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
   modules: /node_modules/,
   src: /src/,
 }
 
 const PATH = {
+  images: `${PROJECT_FOLDER}${IMAGES_FOLDER}`,
   template: `${PROJECT_FOLDER}/template/index.html`,
 }
 
@@ -76,7 +79,9 @@ const getRules = (mode) => [
       {
         loader: 'file-loader',
         options: {
-          name: 'img/[name].[hash:6].[ext]',
+          name: 'images/[name].[hash:6].[ext]',
+          publicPath: 'assets',
+          outputPath: 'assets',
         },
       },
       {
@@ -116,6 +121,14 @@ const getPlugins = (mode) =>
     new MiniCssExtractPlugin({
       filename: isDevMode(mode) ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: isDevMode(mode) ? '[id].css' : '[id].[contenthash].css',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, PATH.images),
+          to: `.${IMAGES_FOLDER}`,
+        },
+      ],
     }),
     isDevMode(mode) && new webpack.HotModuleReplacementPlugin(),
     !isDevMode(mode) &&
