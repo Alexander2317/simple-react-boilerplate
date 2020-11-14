@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 
 import { Title } from '../../components'
 
-import { updateCounter } from '../../redux/actions'
-import { counter } from '../../redux/selectors'
+import { updateCounter } from '../../__data__/actions'
+import { counter } from '../../__data__/selectors'
 
 type Props = {
   count: string,

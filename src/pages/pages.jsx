@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router'
 import Home from './home'
 import NotFound from './not-found'
 
-import { constants } from '../redux'
+import { constants } from '../__data__'
 
 const { routes } = constants
 
