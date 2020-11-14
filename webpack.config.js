@@ -10,8 +10,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const MODE_DEVELOPMENT = 'development'
-const PORT = 3000
-const PORT_ANALYZER = 4000
+const PORT = process.env.PORT || 3000
+const PORT_ANALYZER = process.env.PORT_ANALYZER || 4000
 
 const PROJECT_FOLDER = 'src'
 const BUILD_FOLDER = 'build'
