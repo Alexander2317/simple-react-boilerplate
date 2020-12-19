@@ -120,8 +120,8 @@ const getPlugins = (mode) =>
       template: path.resolve(__dirname, PATH.template),
     }),
     new MiniCssExtractPlugin({
-      filename: isDevMode(mode) ? '[name].css' : '[name].[contenthash].css',
-      chunkFilename: isDevMode(mode) ? '[id].css' : '[id].[contenthash].css',
+      filename: isDevMode(mode) ? '[name].css' : '[name].[fullhash].css',
+      chunkFilename: isDevMode(mode) ? '[id].css' : '[id].[fullhash].css',
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -153,22 +153,7 @@ const getOptimization = (mode) => ({
         new CssMinimizerPlugin({
           test: REG_EXP.css,
         }),
-        new TerserPlugin({
-          cache: true,
-          parallel: true,
-          terserOptions: {
-            compress: {
-              dead_code: true,
-              conditionals: true,
-              booleans: true,
-            },
-            module: false,
-            output: {
-              comments: false,
-              beautify: false,
-            },
-          },
-        }),
+        new TerserPlugin(),
       ],
 })
 
@@ -179,18 +164,18 @@ module.exports = (_, { mode }) => ({
     path: path.resolve(__dirname, BUILD_FOLDER),
     filename: isDevMode(mode)
       ? `[name].${BUNDLE_NAME}`
-      : `[hash].${BUNDLE_NAME}`,
+      : `[fullhash].${BUNDLE_NAME}`,
   },
   resolve: {
     extensions: ['.js', '.jsx', 'json'],
   },
   devtool: isDevMode(mode) ? 'eval' : 'cheap-module-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, PROJECT_FOLDER),
-    open: false,
     port: PORT,
-    hot: true,
     historyApiFallback: true,
+    static: {
+      directory: path.resolve(__dirname, PROJECT_FOLDER),
+    },
   },
   module: {
     rules: getRules(mode),
