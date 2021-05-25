@@ -172,6 +172,7 @@ module.exports = (_, { mode }) => ({
   devtool: isDevMode(mode) ? 'eval' : 'cheap-module-source-map',
   devServer: {
     port: PORT,
+    open: true,
     historyApiFallback: true,
     static: {
       directory: path.resolve(__dirname, PROJECT_FOLDER),

@@ -12,9 +12,7 @@
         "airbnb",
         "plugin:prettier/recommended",
         "plugin:flowtype/recommended",
-        "plugin:css-modules/recommended",
-        "prettier/flowtype",
-        "prettier/react"
+        "plugin:css-modules/recommended"
     ],
   "settings": {
     "import/resolver": {

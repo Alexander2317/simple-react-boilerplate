@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { Title } from '../../components'
-
 import { updateCounter } from '../../__data__/actions'
 import { counter } from '../../__data__/selectors'
 
@@ -22,6 +22,7 @@ const Home = ({ count, updateCounterAction }: Props): React.Node => (
     <br />
     <br />
     <div>Click {count}</div>
+    <Link to="/404">404</Link>
   </>
 )
 
